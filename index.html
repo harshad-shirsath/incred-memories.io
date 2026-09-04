@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Travel Journey</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --ink: #2B2622;
+    --paper: #FAF6ED;
+    --paper-dim: #F1E9D8;
+    --teal: #1B4B43;
+    --rust: #C4622D;
+    --line: #D8CCAE;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+
+  h1,h2,h3, .display { font-family:'Fraunces', serif; }
+
+  a { color: var(--rust); }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:10;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    padding:16px 24px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  header .brand{ font-family:'Fraunces', serif; font-weight:600; font-size:1.1rem; }
+  header nav a{
+    margin-left:20px; text-decoration:none; color:var(--ink); font-size:0.92rem;
+  }
+  header nav a:hover{ color: var(--rust); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    max-width:900px; margin:0 auto;
+    padding: 90px 24px 60px;
+    text-align:left;
+  }
+  .hero .kicker{
+    color:var(--teal); font-size:0.95rem; margin-bottom:14px;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight:500;
+    line-height:1.05;
+    margin:0 0 24px;
+    max-width: 14ch;
+  }
+  .hero p{
+    font-size:1.15rem;
+    max-width:60ch;
+    color:#4a443c;
+  }
+
+  /* ---------- Route strip (edit-your-trip) ---------- */
+  .route{
+    max-width:900px; margin: 0 auto 70px;
+    padding: 0 24px;
+    display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .route span{
+    border:1px solid var(--line);
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:0.85rem;
+    color:var(--teal);
+    background:var(--paper-dim);
+  }
+
+  /* ---------- Journal entries (per destination) ---------- */
+  .journal{
+    max-width:900px; margin:0 auto; padding: 20px 24px 40px;
+  }
+  .entry{
+    border-top:1px solid var(--line);
+    padding: 48px 0;
+    display:grid;
+    grid-template-columns: 140px 1fr;
+    gap: 32px;
+  }
+  .entry:first-child{ border-top:1px solid var(--line); }
+  .entry .stamp{
+    font-size:0.85rem;
+    color:#7a7266;
+    padding-top:6px;
+  }
+  .entry .stamp .place{
+    display:block;
+    color:var(--rust);
+    font-family:'Fraunces', serif;
+    font-size:1.4rem;
+    margin-bottom:4px;
+  }
+  .entry .content h3{
+    margin-top:0; font-size:1.5rem; font-weight:500;
+  }
+  .entry .content p{ color:#4a443c; }
+
+  /* photo grid inside an entry */
+  .photo-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:8px;
+    margin-top:20px;
+  }
+  .photo-grid img, .photo-grid .ph{
+    width:100%; height:150px; object-fit:cover;
+    border-radius:4px;
+    background:var(--paper-dim);
+    display:flex; align-items:center; justify-content:center;
+    color:#a89f8c; font-size:0.75rem; text-align:center; padding:8px;
+  }
+
+  /* video embed inside an entry */
+  .video-wrap{
+    position:relative; width:100%; padding-top:56.25%;
+    margin-top:20px; border-radius:4px; overflow:hidden;
+    background:#000;
+  }
+  .video-wrap iframe{
+    position:absolute; top:0; left:0; width:100%; height:100%; border:0;
+  }
+
+  @media (max-width: 640px){
+    .entry{ grid-template-columns: 1fr; }
+    .photo-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ---------- Full gallery section ---------- */
+  .gallery-section{
+    background:var(--teal);
+    color:var(--paper);
+    padding: 70px 24px;
+  }
+  .gallery-section h2{
+    max-width:900px; margin:0 auto 30px;
+    font-weight:500; font-size:2rem;
+  }
+  .gallery-note{
+    max-width:900px; margin: -14px auto 30px;
+    color:#cfe0da; font-size:0.95rem;
+  }
+  .gallery-embed{
+    max-width:900px; margin:0 auto;
+    border-radius:6px; overflow:hidden;
+    min-height:400px;
+    background:rgba(255,255,255,0.06);
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:24px; color:#cfe0da; font-size:0.9rem;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    text-align:center; padding:40px 24px; color:#7a7266; font-size:0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Where I've Been</div>
+  <nav>
+    <a href="#journal">Journal</a>
+    <a href="#gallery">Gallery</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="kicker">A travel journal — 2024–2026</div>
+  <h1>Notes from the road,<br>one stamp at a time.</h1>
+  <p>Photos, videos, and stories from everywhere I've wandered. This page updates as the trips do.</p>
+</section>
+
+<div class="route">
+  <!-- Edit this list to match your actual trip route -->
+  <span>Lisbon</span>
+  <span>Marrakech</span>
+  <span>Hoi An</span>
+  <span>Reykjavik</span>
+</div>
+
+<main class="journal" id="journal">
+
+  <!-- ============ ENTRY TEMPLATE — copy this block for each place you visit ============ -->
+  <article class="entry">
+    <div class="stamp">
+      <span class="place">Lisbon</span>
+      March 2024
+    </div>
+    <div class="content">
+      <h3>Tiles, trams, and the smell of grilled sardines</h3>
+      <p>
+        Replace this paragraph with your own story about the place — what you did,
+        what surprised you, what you'd tell a friend before they go.
+      </p>
+
+      <!-- Photo grid: replace src with your own image URLs (e.g. from a Google Photos
+           shared album, or images you host on GitHub Pages / Imgur / Playbook) -->
+      <div class="photo-grid">
+        <div class="ph">Replace with &lt;img src="your-photo.jpg"&gt;</div>
+        <div class="ph">Replace with &lt;img src="your-photo.jpg"&gt;</div>
+        <div class="ph">Replace with &lt;img src="your-photo.jpg"&gt;</div>
+      </div>
+
+      <!-- Video: paste a YouTube (unlisted is fine) embed URL here -->
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Trip video" allowfullscreen></iframe>
+      </div>
+    </div>
+  </article>
+  <!-- ============ END TEMPLATE — duplicate the <article class="entry"> block above for each new destination ============ -->
+
+  <article class="entry">
+    <div class="stamp">
+      <span class="place">Marrakech</span>
+      June 2024
+    </div>
+    <div class="content">
+      <h3>Getting lost in the medina, on purpose</h3>
+      <p>
+        Another placeholder story — swap this out for your own writing about Marrakech,
+        or delete this whole entry if it doesn't apply.
+      </p>
+      <div class="photo-grid">
+        <div class="ph">Replace with &lt;img src="your-photo.jpg"&gt;</div>
+        <div class="ph">Replace with &lt;img src="your-photo.jpg"&gt;</div>
+        <div class="ph">Replace with &lt;img src="your-photo.jpg"&gt;</div>
+      </div>
+    </div>
+  </article>
+
+</main>
+
+<section class="gallery-section" id="gallery">
+  <h2>Full photo &amp; video library</h2>
+  <p class="gallery-note">
+    Instead of uploading every raw file here, link a Google Photos shared album or a
+    published Playbook board below — it'll stay fast and free.
+  </p>
+  <div class="gallery-embed">
+    Paste an &lt;iframe&gt; embed here from your Google Photos album share link,
+    or your published Playbook board link, and it will show your full gallery.
+    <br><br>
+    Google Photos: open your shared album → Share → "Create link" → embed via
+    an iframe pointing at that link.<br>
+    Playbook: open your board → Share → Publish → copy the embed code.
+  </div>
+</section>
+
+<footer>
+  Built with a free static page — hosted on GitHub Pages or Netlify.
+</footer>
+
+</body>
+</html>
